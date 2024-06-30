@@ -1,0 +1,15 @@
+BasedOnStyle: LLVM
+IndentWidth: 2
+UseTab: Never
+BreakBeforeBraces: Linux
+AllowShortIfStatementsOnASingleLine: false
+AllowShortBlocksOnASingleLine: true
+AllowShortFunctionsOnASingleLine: false
+AllowShortLoopsOnASingleLine: true
+IndentCaseLabels: true
+ColumnLimit: 120
+AlignConsecutiveAssignments: true
+AlignConsecutiveBitFields: true
+AlignConsecutiveMacros: true
+AlignTrailingComments: false
+SkipMacroDefinitionBody: true

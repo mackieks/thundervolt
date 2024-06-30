@@ -1,0 +1,12 @@
+{
+    "name": "ThundervoltCommon",
+    "version": "1.0.0",
+    "description": "Thundervolt common code",
+    "build": {
+        "srcFilter": [
+            "+<*>",
+            "-<i2c_wii.c>",
+            "-<i2c_dummy.c>"
+        ]
+    }
+}
