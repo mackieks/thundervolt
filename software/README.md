@@ -2,7 +2,7 @@
 
 Firmware and homebrew for Thundervolt.
 
-Pre-built binaries for the firmware, and packages for the homebrew can be found in the [releases](https://github.com/mackieks/thundervolt-private/releases) section.
+Pre-built binaries for the firmware, and packages for the homebrew can be found in the [releases](https://github.com/mackieks/thundervolt/releases) section.
 
 ## Firmware
 
