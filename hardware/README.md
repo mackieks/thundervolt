@@ -11,7 +11,7 @@ There are 3 variants of the Thundervolt PCB. As of 2024-07-01, only **Thundervol
   - The Lamborghini of Wii voltage regulation. Thundervolt 2 includes four INA700 power monitor ICs and can report the Wii's current and power consumption in real time. It requires an even higher spec PCB than Thundervolt 1 and is quite expensive ($14-$20 per bare board)
   - Currently unreleased — still in testing
 
-A 100x100mm jig PCB for solderpaste stenciling is also provided. Order the jig as a 2-layer 0.8mm board.
+Two jig PCBs for solderpaste stenciling are also provided. Order both jigs as 2-layer 0.8mm boards.
 
 <img src="../images/thundervolt_pcb.png" />
 
