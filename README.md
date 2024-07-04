@@ -36,31 +36,8 @@ More functionality such as CPU/GPU/MEM stress tests and a power monitor for Thun
 Adding a full BMS to Thundervolt would require major sacrifices to regulator efficiency, thermal performance, and cost. A companion board called *Mjolnir* is in development to fulfill these needs, and will feature tight integration with the existing Thundervolt ecosystem.
 
 ## Ordering & Assembly
-Recommended board fabrication specs for **Thundervolt 1** (JLCPCB):
 
-**MANDATORY**
-- 0.8mm 4-layer rigid PCB
-- Epoxy Filled & Capped vias
-- ENIG (improves solderability for chipscale BGAs)
-
-Optional
-- Black soldermask - not necessary, but looks great with the lightning bolt art :)
-- 1oz/in² copper on internal layers - not necessary, but technically improves PDN performance
-
-In the **Remark** section on the JLCPCB order page, paste the following comment:
-```
-Kindly note that the graphics on the fMask layer are artwork for aesthetic purposes. Please do NOT edit any of the fMask apertures on the board, or remove any thin soldermask webs. Thank you!
-```
-
-Both an electropolished solder paste stencil and the universal Thundervolt jig PCB are **highly** recommended for assembly. 
-
-**Note:** When ordering the stencil, specify custom dimensions of **90 x 90mm**. Order the jig PCB as a 2-layer 0.8mm PCB.
-
-Cost of 10 Thundervolt 1 boards plus an electropolished stencil is around 120USD.
-
-[Link to Mouser cart with BOM](https://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=D2F0182832)
-
-**Note:** The XFL5015-221MEC low-profile inductors used on Thundervolt 1 and Thundervolt 2 are only available [directly from Coilcraft.](https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl501x/xfl5015-221/)
+See [the hardware folder](https://github.com/mackieks/thundervolt/tree/main/hardware) for details on ordering and assembling Thundervolt PCBs.
 
 ## Usage
 The homebrew app is pretty self explanatory; see [the demo on YouTube](https://youtu.be/DeZFMLoE9EQ) for details. A full writeup will come later.
