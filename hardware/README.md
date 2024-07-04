@@ -16,27 +16,39 @@ A 100x100mm jig PCB for solderpaste stenciling is also provided. Order the jig a
 <img src="../images/thundervolt_pcb.png" />
 
 ## Ordering & Assembly
-Recommended board fabrication specs for **Thundervolt 1** (JLCPCB):
+Recommended board fabrication specs for **Thundervolt 1** (JLCPCB). Thundervolt is a high-spec PCB. Please read this entire section so you understand the fab requirements. 
 
 **MANDATORY**
 - 0.8mm 4-layer rigid PCB
 - Epoxy Filled & Capped vias (aka VIPPO or POFV)
+- Min via hole size/diameter: 0.2mm/(0.3/0.35mm)
 - ENIG (improves solderability for chipscale BGAs)
 
 Optional
 - Black soldermask - not necessary, but looks great with the lightning bolt art :)
 - 1oz/in² copper on internal layers - not necessary, but technically improves PDN performance
 
-In the **Remark** section on the JLCPCB order page, paste the following comment:
+In the **Remark** section of your Thundervolt 1 PCB order, paste the following comment:
 ```
 Kindly note that the graphics on the fMask layer are artwork for aesthetic purposes. Please do NOT edit any of the fMask apertures on the board, or remove any thin soldermask webs. Thank you!
 ```
 
-Both an electropolished solder paste stencil and the universal Thundervolt jig PCB are **highly** recommended for assembly. 
+**Note:** Check the box for **Confirm Production File**. Then check the box for "Do Not Confirm Automatically." JLCPCB will often edit the gerbers in unpleasant ways and you **must** push back on this. If they change the via drill size or via diameter, you need to request that they abide by their listed spec of 0.2mm drill and 0.3mm via diameter without editing the design files. 
 
-**Note:** When ordering the stencil, specify custom dimensions of **90 x 90mm**. Order the jig PCB as a 2-layer 0.8mm PCB.
+If JLCPCB complains further about the via hole sizes, patiently explain that both their order form and customer service explicity state that vias with 0.2mm drills and 0.3mm diameter are supported. This image may come in handy:
 
-Cost of 10 Thundervolt 1 boards plus an electropolished stencil is around 120USD.
+<img src="../images/jlc_support.png" width="500"/>
+
+Both an electropolished solder paste stencil and the two jig PCBs (jig1, jig2) are **highly** recommended for assembly. 
+
+**Note:** When ordering the stencil, you must specify custom dimensions of **90 x 90mm**. Select electropolishing to avoid issues when pasting the chipscale BGAs.
+
+Order both jig1 and jig2 as 0.8mm 2-layer PCBs. In the **Remark** section of both jig PCB orders, paste the following comment:
+```
+Please note that this is a mechanical PCB and does not contain any drill holes or soldermask openings. Thank you!
+```
+
+Cost of 10 Thundervolt 1 boards with all recommended parameters, plus an electropolished stencil, is 120USD. (Jig PCBs and shipping are extra)
 
 [Link to Mouser cart with BOM](https://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=D2F0182832)
 
