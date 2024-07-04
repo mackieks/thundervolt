@@ -1,12 +1,12 @@
 %TF.GenerationSoftware,KiCad,Pcbnew,8.99.0-344-gfbc433deaa*%
-%TF.CreationDate,2024-04-23T20:16:42-04:00*%
-%TF.ProjectId,thundervolt,7468756e-6465-4727-966f-6c742e6b6963,rev?*%
+%TF.CreationDate,2024-07-04T10:19:27-04:00*%
+%TF.ProjectId,thundervolt_hw1,7468756e-6465-4727-966f-6c745f687731,rev?*%
 %TF.SameCoordinates,PX85b368ePY7384544*%
 %TF.FileFunction,Legend,Bot*%
 %TF.FilePolarity,Positive*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 8.99.0-344-gfbc433deaa) date 2024-04-23 20:16:42*
+G04 Created by KiCad (PCBNEW 8.99.0-344-gfbc433deaa) date 2024-07-04 10:19:27*
 %MOMM*%
 %LPD*%
 G01*
