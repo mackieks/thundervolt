@@ -39,6 +39,16 @@ If JLCPCB complains further about the via hole sizes, patiently explain that bot
 
 <img src="../images/jlc_support.png" width="500"/>
 
+A comment like this when reviewing the production file goes a long way:
+```
+In the production file, the via diameter has been changed from 0.3mm to 0.35mm [or whatever they changed it to]. Please do not change the via size. They should be 0.2mm drill and 0.3mm diameter as in the original file. I greatly appreciate your assistance with this. Thanks!
+```
+
+You'll notice that they grow the copper clearance around drills on inner layers. As long as they are not changing the via diameters, this is OK. They may also request to remove annular rings ("pads") on internal layers. This is good as it lessens the impact of their copper clearance expansion on the inner planes.
+
+![image](https://github.com/mackieks/thundervolt/assets/49252894/28143b2f-454b-4819-bf8b-bedc201789e9)
+
+
 Both an electropolished solder paste stencil and the two jig PCBs (jig1, jig2) are **highly** recommended for assembly. 
 
 **Note:** When ordering the stencil, you must specify custom dimensions of **90 x 90mm**. Select electropolishing to avoid issues when pasting the chipscale BGAs.
