@@ -42,6 +42,8 @@ In the **Remark** section of your Thundervolt Lite PCB order, paste the followin
 Kindly note that the graphics on the fMask layer are artwork for aesthetic purposes. Please do NOT edit any of the fMask apertures on the board, or remove any thin soldermask webs. Thank you!
 ```
 
+If JLC tries to upcharge you for the soldermask artwork, push back. The artwork requires zero additional work or intervention on their part. Feel free to reference my Thundervolt Lite order number if necessary: **Y118-2549677A**
+
 ### Thundervolt 1
 
 Recommended board fabrication specs for **Thundervolt 1** (JLCPCB). Thundervolt 1 is a high-spec PCB. Please read this entire section so you understand the fab requirements. 
@@ -60,6 +62,8 @@ In the **Remark** section of your Thundervolt 1 PCB order, paste the following c
 ```
 Kindly note that the graphics on the fMask layer are artwork for aesthetic purposes. Please do NOT edit any of the fMask apertures on the board, or remove any thin soldermask webs. Thank you!
 ```
+
+If JLC tries to upcharge you for the soldermask artwork, push back. The artwork requires zero additional work or intervention on their part. Feel free to reference my Thundervolt 1 order number if necessary: **Y108-2549677A**
 
 **Note:** Check the box for **Confirm Production File**. Then check the box for "Do Not Confirm Automatically." JLCPCB will often edit the gerbers in unpleasant ways and you **must** push back on this. If they change the via drill size or via diameter, you need to request that they abide by their listed spec of 0.2mm drill and 0.3mm via diameter without editing the design files. 
 
