@@ -4,11 +4,11 @@ Thundervolt is a suite of open-source hardware and software that enables softwar
 
 <img src="images/thundervolt_pcb.png" />
 
-The Thundervolt PCB (Thundervolt 1 shown) is a stylish, highly-integrated power hat for 4-layer Wiis that solders directly to the Wii mobo. Only 3 wires are necessary to connect it to the motherboard (I2C and Reset). Power is supplied via two additional wires.
+The Thundervolt PCB (Thundervolt 1 and Thundervolt Lite shown) are stylish, highly-integrated power hats for 4-layer Wiis that solder directly to the Wii motherboard. Only 3 wires are necessary to connect Thundervolt to the Wii (I2C and Reset). Power is supplied via two additional wires.
 
 <img src="images/board.jpg" />
 
-The Thundervolt homebrew app (Dolphin debug version shown) is equally stylish! It provides granular control over each voltage regulator on the Thundervolt board, as well as emergency overtemperature protection with a configurable threshold. 
+The Thundervolt homebrew app (Dolphin debug version shown) provides granular control over each voltage regulator on the Thundervolt board, as well as emergency overtemperature protection with a configurable threshold. 
 
 <img src="images/app.png" />
 
