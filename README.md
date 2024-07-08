@@ -17,7 +17,7 @@ Users can apply changes live, and save settings to Thundervolt's EEPROM for pers
 More functionality such as CPU/GPU/MEM stress tests and a power monitor for Thundervolt 2 will be added to the app in the future.
 
 ## Features
-- 0.8mm 4L VIPPO rigid PCB — solders directly to 4-layer Wii motherboards
+- 0.8mm 4L rigid PCB — solders directly to 4-layer Wii motherboards
 - 55 x 47mm — fits within all but the most extreme trim outlines
 - 2.4V to 5.5V input (intended for 1S li-ion or 5V USB-C)
 - Highly efficient I2C-controlled buck regulators for 1V, 1.15V, and 1.8V (η > 90%)
