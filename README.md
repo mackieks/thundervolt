@@ -4,7 +4,7 @@ Thundervolt is a suite of open-source hardware and software that enables softwar
 
 <img src="images/thundervolt_pcb.png" />
 
-The Thundervolt PCB (Thundervolt 1 and Thundervolt Lite shown) are stylish, highly-integrated power hats for 4-layer Wiis that solder directly to the Wii motherboard. Only 3 wires are necessary to connect Thundervolt to the Wii (I2C and Reset). Power is supplied via two additional wires.
+The Thundervolt PCBs (Thundervolt 1 and Thundervolt Lite shown) are stylish, highly-integrated power hats for 4-layer Wiis that solder directly to the Wii motherboard. Only 3 wires are necessary to connect Thundervolt to the Wii (I2C and Reset). Power is supplied via two additional wires.
 
 <img src="images/board.jpg" />
 
