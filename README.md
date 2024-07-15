@@ -37,7 +37,7 @@ Adding a full BMS to Thundervolt would require major sacrifices to regulator eff
 
 ## Ordering & Assembly
 
-See [the hardware folder](https://github.com/mackieks/thundervolt/tree/main/hardware) for details on ordering and assembling Thundervolt PCBs.
+See [the hardware folder](https://github.com/mackieks/thundervolt/tree/main/hardware) for details on ordering and [assembling](https://github.com/mackieks/thundervolt/blob/main/hardware/ASSEMBLY.md) Thundervolt PCBs.
 
 ## Usage
 The homebrew app is pretty self explanatory; see [the demo on YouTube](https://youtu.be/DeZFMLoE9EQ) for details. A full writeup will come later.
