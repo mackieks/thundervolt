@@ -29,73 +29,73 @@ Nice-to-haves:
 
 Once you have everything you need, you can begin stenciling. Apply some double-sided tape to the back of the outer jig PCB.
 
-<img src="images/assembly/IMG_20240629_165643.jpg"/>
+<img src="../images/assembly/IMG_20240629_165643.jpg"/>
 
 Adhere the jig to your stenciling surface.
 
-<img src="images/assembly/IMG_20240629_170217.jpg"/>
+<img src="../images/assembly/IMG_20240629_170217.jpg"/>
 
 Prep the Thundervolt PCB by cleaning it with isopropyl alcohol. Then insert the Thundervolt PCB and inner jig into the outer jig.
 
-<img src="images/assembly/IMG_20240629_170351.jpg"/>
+<img src="../images/assembly/IMG_20240629_170351.jpg"/>
 
 Prep the stencil by cleaning it with isopropyl alcohol.
 
-<img src="images/assembly/IMG_20240629_114445.jpg"/>
+<img src="../images/assembly/IMG_20240629_114445.jpg"/>
 
 Align the stencil with the Thundervolt PCB. Make sure the stencil apertures align perfectly with the exposed pads on the board— good lighting is critical here. Use some tape at the top edge of the stencil to secure it in place and act as a hinge. If you are using a magnetic stenciling surface, you can place some strong magnets on the edges of the stencil to keep it flush.
 
-<img src="images/assembly/IMG_20240629_170613.jpg"/>
+<img src="../images/assembly/IMG_20240629_170613.jpg"/>
 
 Dispense some solderpaste in a line across the top edge of the stencil and squeegee it downward. There are many tutorials for stenciling on YouTube if you need additional guidance.
 
-<img src="images/assembly/IMG_20240629_172256.jpg"/>
+<img src="../images/assembly/IMG_20240629_172256.jpg"/>
 
 Carefully slide the magnets off the stencil and peel it up. The cleaner your pasting and stencil release, the less rework you will have to perform after reflow. It's worth retrying the process a couple times to get it right.
 
-<img src="images/assembly/IMG_20240629_172330.jpg"/>
+<img src="../images/assembly/IMG_20240629_172330.jpg"/>
 
 Open the BOM.html file for your Thundervolt variant in a web browser and place all the components with tweezers or a vacuum pen.
 
-<img src="images/assembly/IMG_20240707_161951.jpg"/>
+<img src="../images/assembly/IMG_20240707_161951.jpg"/>
 
 Reflow the PCBA. A hot plate works well for one-offs. Otherwise, use a reflow oven. Hot air is **not** recommended for reflow as it tends to blow the chipscale BGAs away.
 
-<img src="images/assembly/IMG_20240707_162057.jpg"/>
+<img src="../images/assembly/IMG_20240707_162057.jpg"/>
 
 ## Rework
 
 You may need to perform rework on your Thundervolt board, especially if you ordered a HASL board, or your pasting job was messy (both of which were true for this example assembly!) Inspect the board for any misaligned or tombstoned components, and any head-in-pillow defects. Any free-floating solder balls should also be removed.
 
-<img src="images/assembly/IMG_20240707_162443.jpg"/>
+<img src="../images/assembly/IMG_20240707_162443.jpg"/>
 
 Drowning components in tacky flux and reflowing them with hot air solves most issues. Sometimes you need to remove a component, re-tin the pads on the PCB with your iron, and reflow the part back on. 
 
 After rework, clean off all flux residue with Kimwipes and 91% isopropyl or an ultrasonic cleaner. Inspect all the solder joints, especially on the voltage regulators and BGAs. 
 
-<img src="images/assembly/IMG_20240707_173252.jpg"/>
+<img src="../images/assembly/IMG_20240707_173252.jpg"/>
 
-<img src="images/assembly/IMG_20240707_174041.jpg"/>
+<img src="../images/assembly/IMG_20240707_174041.jpg"/>
 
 Check for shorts between GND and the following nets: VBAT, 1.8V_ALW, LX1/LX2 on the 3.3v regulator, and the output rails. Also check for shorts between EN (non-GND side of R7) and VBAT/LX1/LX2/3.3V. (LX1 and LX2 are the two pins of L4.)
 
-<img src="images/assembly/IMG_20240707_171804.jpg"/>
+<img src="../images/assembly/IMG_20240707_171804.jpg"/>
 
 ## Bring-Up
 
 Once the board is fully assembled and cleaned, you can program it. Congrats!
 
-<img src="images/assembly/IMG_20240707_173713.jpg"/>
+<img src="../images/assembly/IMG_20240707_173713.jpg"/>
 
 Connect a 2.5V - 5.5V supply (or 1S li-ion battery) to VBAT and GND. Measure voltage between 1.8V_ALW and GND at the programming pads to confirm the LDO is outputting 1.8V.
 
-<img src="images/assembly/IMG_20240707_175258.jpg"/>
+<img src="../images/assembly/IMG_20240707_175258.jpg"/>
 
 Now you can connect your programmer to the programming pads and flash the latest Thundervolt firmware. Be sure to build and flash the firmware matching your board type.
 
 All board variants have the same programming pad layout. Reference your programmer's docs for its pinout.
 
-<img src="images/prog.png" width=400/>
+<img src="../images/prog.png" width=400/>
 
 See the [software folder](https://github.com/mackieks/thundervolt/tree/main/software) for more details on building and flashing the firmware.
 
