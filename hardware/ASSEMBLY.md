@@ -1,5 +1,7 @@
 # Assembly
 
+## Supplies & Equipment
+
 Before assembling a Thundervolt, you should have the following supplies:
 - Thundervolt PCB
 - Two jig PCBs (outer and inner)
@@ -25,7 +27,7 @@ Nice-to-haves:
   - [Amscope 7x-45x](https://www.ebay.com/itm/140938262240)
 - [Ultrasonic cleaner](https://www.amazon.com/VEVOR-Commercial-Ultrasonic-Capacity-Solution/dp/B01HGNM5WE)
 
-## Stenciling
+## Assembly
 
 Once you have everything you need, you can begin stenciling. Apply some double-sided tape to the back of the outer jig PCB.
 
