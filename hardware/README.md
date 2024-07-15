@@ -103,7 +103,7 @@ Please note that this is a mechanical PCB and does not contain any drill holes o
 
 ## Assembly
 
-TODO
+See [ASSEMBLY.md](https://github.com/mackieks/thundervolt/blob/main/hardware/ASSEMBLY.md) for assembly instructions.
 
 ## License
 
