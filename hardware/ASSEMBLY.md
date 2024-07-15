@@ -83,11 +83,11 @@ Check for shorts between GND and the following nets: VBAT, 1.8V_ALW, LX1/LX2 on 
 
 ## Bring-Up
 
-Once the board is fully assembled and cleaned, you can program it. Congrats!
+Once the board is fully assembled and cleaned, you can flash it. Congrats!
 
 <img src="../images/assembly/IMG_20240707_173713.jpg"/>
 
-Connect a 2.5V - 5.5V supply (or 1S li-ion battery) to VBAT and GND. Measure voltage between 1.8V_ALW and GND at the programming pads to confirm the LDO is outputting 1.8V.
+Thundervolt must be powered from the VBAT and GND pads in order to be flashed! Connect a 2.5V - 5.5V supply (or 1S li-ion battery) to VBAT and GND. Measure voltage between 1.8V_ALW and GND at the programming pads to confirm the LDO is outputting 1.8V.
 
 <img src="../images/assembly/IMG_20240707_175258.jpg"/>
 
