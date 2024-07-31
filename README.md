@@ -30,6 +30,7 @@ More functionality such as CPU/GPU/MEM stress tests and a power monitor for Thun
 
 ## What Thundervolt does NOT do
 - Battery management and charging
+- Fan control
 - Power button handling for portables
 - USB PD negotiation
 
