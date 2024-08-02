@@ -93,7 +93,7 @@ Please note that this is a mechanical PCB and does not contain any drill holes o
 
 ## BOM
 
-**Thundervolt Lite:** [Link to Mouser cart with BOM](https://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=3CC491924A)
+**Thundervolt Lite:** [Link to Mouser cart with BOM](https://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=3CC491924A) [Link to Digikey cart with BOM](https://www.digikey.com/en/mylists/list/8MGOI5CSL2)
 
 **Thundervolt 1**: [Link to Mouser cart with BOM](https://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=D2F0182832)
 
