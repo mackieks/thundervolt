@@ -11038,6 +11038,7 @@
 		(property "Reference" "U7"
 			(at 0 0 0)
 			(layer "F.SilkS")
+			(hide yes)
 			(uuid "5982c47c-0803-41ea-a108-df4b17070d9e")
 			(effects
 				(font
@@ -12054,7 +12055,7 @@
 			(uuid "7e2516ff-ec79-4037-836a-978b4a9d2f41")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(uuid "ea357e1b-48f3-4d8d-bee0-3e5ac1a20def")
 			(effects
