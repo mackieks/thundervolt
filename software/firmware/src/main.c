@@ -22,6 +22,7 @@ static const uint8_t SOFTWARE_REV = 1;
 static const gpio_t EN       = {&PORTA, 1};
 static const gpio_t SAFEMODE = {&PORTA, 3};
 static const gpio_t ALERT    = {&PORTA, 4};
+static const gpio_t DIRECT   = {&PORTA, 7};
 static const gpio_t U10      = {&PORTB, 3};
 static const gpio_t LED      = {&PORTC, 0};
 
@@ -80,8 +81,7 @@ static void initialize_eeprom()
 // Check if the specified register is read-only
 static inline bool is_read_only_register(uint8_t reg_addr)
 {
-  return reg_addr == THUNDERVOLT_REG_STATUS || reg_addr == THUNDERVOLT_REG_HWREV ||
-         reg_addr == THUNDERVOLT_REG_SWREV;
+  return reg_addr == THUNDERVOLT_REG_STATUS || reg_addr == THUNDERVOLT_REG_HWREV || reg_addr == THUNDERVOLT_REG_SWREV;
 }
 
 // Get the value of a 16-bit register
@@ -181,9 +181,22 @@ static void gpio_init()
   gpio_output(EN);
   gpio_set_low(EN);
 
+  // Pinstrapping to detect U10 Direct Mode vs FET Mode
+  gpio_input(DIRECT);
+  gpio_config(DIRECT, PORT_PULLUPEN_bm);
+
+  // Check pinstrapping to see if board has U10 FET
+  bool u10_direct_mode = gpio_read(DIRECT);
+
   // U10 emulation pin
   gpio_output(U10);
-  gpio_set_low(U10);
+
+  // Assert U10 (make it low)
+  if (u10_direct_mode) {
+    gpio_set_low(U10); // faux open-drain (direct mode)
+  } else {
+    gpio_set_high(U10); // U10 NFET gate is active-high
+  }
 
   // LED, default off
   gpio_output(LED);
@@ -222,8 +235,7 @@ ISR(PORTA_PORT_vect)
       gpio_set_low(EN);
 
       // Enable the SOS LED effect
-      led_effect_blink_pattern(LED_SOS_PATTERN,
-                               sizeof(LED_SOS_PATTERN) / sizeof(LED_SOS_PATTERN[0]));
+      led_effect_blink_pattern(LED_SOS_PATTERN, sizeof(LED_SOS_PATTERN) / sizeof(LED_SOS_PATTERN[0]));
     }
   }
 
@@ -289,9 +301,7 @@ int main(void)
   }
 
   // Set the voltage on each regulator
-  for (uint8_t i = THUNDERVOLT_RAIL_1V0; i <= THUNDERVOLT_RAIL_3V3; i++) {
-    thundervolt_set_voltage(i, voltages[i]);
-  }
+  for (uint8_t i = THUNDERVOLT_RAIL_1V0; i <= THUNDERVOLT_RAIL_3V3; i++) { thundervolt_set_voltage(i, voltages[i]); }
 
   // Set the over-temperature limit based on the persisted value
   thundervolt_set_otsd_limit(registers[THUNDERVOLT_REG_OTSD_TEMP]);
@@ -299,8 +309,15 @@ int main(void)
   // Wait 200ms to emulate the U10 delay
   _delay_ms(200);
 
-  // Set U10 to input / open drain, so Hollywood can pull it high and boot
-  gpio_input(U10);
+  // Check pinstrapping to see if board has U10 FET
+  bool u10_direct_mode = gpio_read(DIRECT);
+
+  // Deassert U10 (make it high-impedance) so Hollywood can boot
+  if (u10_direct_mode) {
+    gpio_input(U10); // faux open-drain (direct mode)
+  } else {
+    gpio_set_low(U10); // Turn off U10 NFET
+  }
 
   // Update the device state
   device_state = STATE_POWERED;
