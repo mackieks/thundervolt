@@ -68,7 +68,7 @@ Reflow the PCBA. A hot plate works well for one-offs. Otherwise, use a reflow ov
 
 ## Rework
 
-You may need to perform rework on your Thundervolt board, especially if you ordered a HASL board, or your pasting job was messy (both of which were true for this example assembly!) Inspect the board for any misaligned or tombstoned components, and any head-in-pillow defects. Any free-floating solder balls should also be removed.
+You may need to perform rework on your Thundervolt board, especially if your board was sitting out for a long time, or your pasting job was messy (both of which were true for this example assembly!) Inspect the board for any misaligned or tombstoned components, and any head-in-pillow defects. Any free-floating solder balls should also be removed.
 
 <img src="../images/assembly/IMG_20240707_162443.jpg"/>
 
