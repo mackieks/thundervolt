@@ -21,11 +21,12 @@ Before assembling a Thundervolt, you should have the following supplies:
 Nice-to-haves:
 - [Magnetic surface](https://www.ebay.com/itm/335469101822) to stencil on
 - Nd magnets and double-sided tape for stenciling
-- [Kimwipes](https://www.mouser.com/ProductDetail/MG-Chemicals/830-34155?qs=WXzVXFlun0Vx2RYSUZAAsA%3D%3D) and 91% isopropyl for cleanup
-- Magnification is strongly recommended
+- [91% isopropyl alcohol](https://www.ebay.com/itm/363216561079) for cleaning
+- [Kimwipes](https://www.mouser.com/ProductDetail/MG-Chemicals/830-34155?qs=WXzVXFlun0Vx2RYSUZAAsA%3D%3D)
+- [Ultrasonic cleaner](https://www.amazon.com/VEVOR-Commercial-Ultrasonic-Capacity-Solution/dp/B01HGNM5WE)
+- Magnification is **strongly** recommended
   - [Magnifying Lamp](https://www.amazon.com/Brightech-LightView-PRO-Magnifying-Magnification/dp/B016LTTS8S/)
   - [Amscope 7x-45x](https://www.ebay.com/itm/140938262240)
-- [Ultrasonic cleaner](https://www.amazon.com/VEVOR-Commercial-Ultrasonic-Capacity-Solution/dp/B01HGNM5WE)
 
 ## Assembly
 
