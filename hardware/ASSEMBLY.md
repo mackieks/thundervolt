@@ -19,7 +19,7 @@ Before assembling a Thundervolt, you should have the following supplies:
 - Tacky flux for rework ([SMD291](https://www.mouser.com/ProductDetail/Chip-Quik/SMD291?qs=8BX3xQzFIvmwkympZqnNNA%3D%3D), [MG Chem 8341](https://www.mouser.com/ProductDetail/MG-Chemicals/8341-10ML?qs=SUQPjvP5usWRLDN27VlqNg%3D%3D), [AMTECH NC-559-V2](https://shop.inventec.dehon.com/products/copie-de-amtech-nc-559-v2), [CitriFlow](https://www.injuredgadgets.com/tcrs-citriflow-tm-no-clean-tacky-flux-paste-w-needle-and-cover-10g-syringe/))
 
 Nice-to-haves:
-- [Magnetic surface](https://www.ebay.com/itm/395527710592) to stencil on
+- [Magnetic surface](https://www.ebay.com/itm/335469101822) to stencil on
 - Nd magnets and double-sided tape for stenciling
 - [Kimwipes](https://www.mouser.com/ProductDetail/MG-Chemicals/830-34155?qs=WXzVXFlun0Vx2RYSUZAAsA%3D%3D) and 91% isopropyl for cleanup
 - Magnification is strongly recommended
