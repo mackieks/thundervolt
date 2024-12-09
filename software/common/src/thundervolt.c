@@ -295,8 +295,7 @@ int thundervolt_set_persisted_voltage(uint8_t rail, uint16_t voltage)
 
 int thundervolt_clear_persisted_values()
 {
-  return i2c_reg_update_byte(THUNDERVOLT_I2C_ADDR, THUNDERVOLT_REG_CONFIG, THUNDERVOLT_CLEAR,
-                             THUNDERVOLT_CLEAR);
+  return i2c_reg_update_byte(THUNDERVOLT_I2C_ADDR, THUNDERVOLT_REG_CONFIG, THUNDERVOLT_CLEAR, THUNDERVOLT_CLEAR);
 }
 
 int thundervolt_get_otsd_enabled(bool *enable)

@@ -52,7 +52,7 @@ static volatile uint8_t registers[THUNDERVOLT_NUM_REGISTERS];
 static void reset_eeprom()
 {
   // Write the default CONFIG register value
-  eeprom_write_byte(THUNDERVOLT_REG_CONFIG, THUNDERVOLT_LED);
+  eeprom_update_byte(THUNDERVOLT_REG_CONFIG, THUNDERVOLT_LED);
 
   // Write the default "stock" voltage values
   eeprom_write_word(THUNDERVOLT_REG_VPERS_1V0_L, THUNDERVOLT_STOCK_VOLTAGE_1V0);
@@ -61,7 +61,7 @@ static void reset_eeprom()
   eeprom_write_word(THUNDERVOLT_REG_VPERS_3V3_L, THUNDERVOLT_STOCK_VOLTAGE_3V3);
 
   // Write the default over-temperature shutdown temperature
-  eeprom_write_byte(THUNDERVOLT_REG_OTSD_TEMP, THUNDERVOLT_DEFAULT_OTSD_LIMIT);
+  eeprom_update_byte(THUNDERVOLT_REG_OTSD_TEMP, THUNDERVOLT_DEFAULT_OTSD_LIMIT);
 }
 
 // Initialize the EEPROM if it has never been initialized
@@ -161,7 +161,8 @@ static int handle_register_write(uint8_t reg_addr, uint8_t value)
   registers[reg_addr] = value;
 
   // Persist the value to the EEPROM
-  eeprom_write_byte((uint8_t *)reg_addr, value);
+  // for some reason eeprom_update_byte is buggy, so use eeprom_update_byte instead
+  eeprom_update_byte((uint8_t *)reg_addr, value);
 
   return 0;
 }
@@ -266,6 +267,9 @@ int main(void)
 
   // Initialize as an I2C controller
   i2c_configure(I2C_MODE_STANDARD);
+
+  // uncomment for forced EEPROM reset (debug)
+  // reset_eeprom();
 
   // Initialize the EEPROM with stock values if it has never been initialized
   initialize_eeprom();

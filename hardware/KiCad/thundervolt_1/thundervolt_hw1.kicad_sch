@@ -1,5 +1,5 @@
 (kicad_sch
-	(version 20240812)
+	(version 20241004)
 	(generator "eeschema")
 	(generator_version "8.99")
 	(uuid "f96ace2f-3864-49e4-b189-00e9bd1a19d1")
@@ -98,7 +98,8 @@
 			(symbol "+1V15_1_1"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "+1V15"
 						(effects
 							(font
@@ -118,9 +119,13 @@
 			(embedded_fonts no)
 		)
 		(symbol "Connector:TestPoint"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0.762) hide)
+				(offset 0.762)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -221,7 +226,9 @@
 			(embedded_fonts no)
 		)
 		(symbol "Device:C_Polarized"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0.254)
 			)
@@ -380,9 +387,13 @@
 			(embedded_fonts no)
 		)
 		(symbol "Device:C_Small"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0.254) hide)
+				(offset 0.254)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -516,9 +527,13 @@
 			(embedded_fonts no)
 		)
 		(symbol "Device:LED"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -686,9 +701,13 @@
 			(embedded_fonts no)
 		)
 		(symbol "Device:L_Small"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0.254) hide)
+				(offset 0.254)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -846,9 +865,13 @@
 			(embedded_fonts no)
 		)
 		(symbol "Device:R_Small"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0.254) hide)
+				(offset 0.254)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -969,9 +992,13 @@
 			(embedded_fonts no)
 		)
 		(symbol "Jumper:SolderJumper_2_Open"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim yes)
 			(in_bom no)
 			(on_board yes)
@@ -1576,7 +1603,8 @@
 				)
 				(pin passive line
 					(at 15.24 -17.78 180)
-					(length 2.54) hide
+					(length 2.54)
+					(hide yes)
 					(name "GND"
 						(effects
 							(font
@@ -2540,7 +2568,8 @@
 				)
 				(pin passive line
 					(at 0 -2.54 0)
-					(length 5.08) hide
+					(length 5.08)
+					(hide yes)
 					(name "LX1_2"
 						(effects
 							(font
@@ -2576,7 +2605,8 @@
 				)
 				(pin passive line
 					(at 0 -7.62 0)
-					(length 5.08) hide
+					(length 5.08)
+					(hide yes)
 					(name "VIN_2"
 						(effects
 							(font
@@ -2612,7 +2642,8 @@
 				)
 				(pin passive line
 					(at 0 -17.78 0)
-					(length 5.08) hide
+					(length 5.08)
+					(hide yes)
 					(name "GND_2"
 						(effects
 							(font
@@ -2648,7 +2679,8 @@
 				)
 				(pin passive line
 					(at 33.02 -2.54 180)
-					(length 5.08) hide
+					(length 5.08)
+					(hide yes)
 					(name "LX2_2"
 						(effects
 							(font
@@ -2684,7 +2716,8 @@
 				)
 				(pin passive line
 					(at 33.02 -7.62 180)
-					(length 5.08) hide
+					(length 5.08)
+					(hide yes)
 					(name "VOUT_2"
 						(effects
 							(font
@@ -2704,7 +2737,9 @@
 			(embedded_fonts no)
 		)
 		(symbol "Transistor_FET:DMG2302U"
-			(pin_names hide)
+			(pin_names
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -3101,7 +3136,8 @@
 			(symbol "+1V0_1_1"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "+1V0"
 						(effects
 							(font
@@ -3222,7 +3258,8 @@
 			(symbol "+1V8_1_1"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "+1V8"
 						(effects
 							(font
@@ -3343,7 +3380,8 @@
 			(symbol "+3V3_1_1"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "+3V3"
 						(effects
 							(font
@@ -3440,7 +3478,8 @@
 			(symbol "GND_1_1"
 				(pin power_in line
 					(at 0 0 270)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "GND"
 						(effects
 							(font
@@ -6877,7 +6916,7 @@
 				)
 				(uuid "da2bda48-2f49-47c2-aa16-22b8b3a52dc3")
 			)
-			(table_cell "0x62"
+			(table_cell "0x48"
 				(exclude_from_sim no)
 				(at 42.9793 185.6883 0)
 				(size 20.32 5.3691)
