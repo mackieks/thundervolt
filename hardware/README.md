@@ -80,7 +80,10 @@ Some amount of "compensation" (growth of annular rings + padshaving) is unavoida
 
 Both an electropolished solder paste stencil and the two jig PCBs (jig1, jig2) are **highly** recommended for assembly. 
 
-**Note:** When ordering the stencil, you must specify custom dimensions of **90 x 90mm**. Select electropolishing to avoid issues when pasting the chipscale BGAs.
+**MANDATORY STENCIL SPECS**
+- Custom dimensions: **90 x 90mm**
+- Top only
+- Electropolishing
 
 Order both jig1 and jig2 as 0.8mm 2-layer PCBs. In the **Remark** section of both jig PCB orders, paste the following comment:
 ```
