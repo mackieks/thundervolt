@@ -39,7 +39,7 @@ Optional
 
 In the **Remark** section of your Thundervolt Lite PCB order, paste the following comment:
 ```
-Kindly note that the graphics on the fMask layer are artwork for aesthetic purposes. Please do NOT edit any of the fMask apertures on the board, or remove any thin soldermask webs. Thank you!
+Kindly note that the graphics on the fMask layer are for aesthetics. Please do NOT edit any of the fMask apertures on the board, or remove any thin soldermask webs. Thank you!
 ```
 
 If JLC tries to upcharge you for the soldermask artwork, push back. The artwork requires zero additional work or intervention on their part. Feel free to reference my Thundervolt Lite order number if necessary: **Y118-2549677A**
@@ -51,7 +51,7 @@ Recommended board fabrication specs for **Thundervolt 1** (JLCPCB). Thundervolt 
 **MANDATORY**
 - 0.8mm 4-layer rigid PCB
 - Epoxy Filled & Capped vias (aka VIPPO or POFV)
-- Min via hole size/diameter: 0.2mm/(0.3/0.35mm)
+- Min via hole size/diameter: 0.15mm/(0.25/0.3mm)
 
 Optional
 - ENIG (improves solderability for chipscale BGAs)
@@ -60,23 +60,19 @@ Optional
 
 In the **Remark** section of your Thundervolt 1 PCB order, paste the following comment:
 ```
-Kindly note that the graphics on the fMask layer are artwork for aesthetic purposes. Please do NOT edit any of the fMask apertures on the board, or remove any thin soldermask webs. Thank you!
+Kindly note that the graphics on the fMask layer are for aesthetics. Please do NOT edit any of the fMask apertures on the board, or remove any thin soldermask webs. Thank you!
 ```
 
 If JLC tries to upcharge you for the soldermask artwork, push back. The artwork requires zero additional work or intervention on their part. Feel free to reference my Thundervolt 1 order number if necessary: **Y108-2549677A**
 
-**Note:** Check the box for **Confirm Production File**. Then check the box for "Do Not Confirm Automatically." JLCPCB will often edit the gerbers in unpleasant ways and you **must** push back on this. If they change the via drill size or via diameter, you need to request that they abide by their listed spec of 0.2mm drill and 0.3mm via diameter without editing the design files. 
-
-If JLCPCB complains further about the via hole sizes, patiently explain that both their order form and customer service explicity state that vias with 0.2mm drills and 0.3mm diameter are supported. This image may come in handy:
-
-<img src="../images/jlc_support.png" width="500"/>
+**Note:** Check the box for **Confirm Production File**. Then check the box for "Do Not Confirm Automatically." JLCPCB will often edit the gerbers in unpleasant ways and you **must** push back on this. If they change the via drill sizes, you need to request that they abide by their listed spec of 0.15mm drills. 
 
 A comment like this when reviewing the production file goes a long way:
 ```
-In the production file, the via diameter has been changed from 0.3mm to 0.35mm [or whatever they changed it to]. Please do not change the via size. They should be 0.2mm drill and 0.3mm diameter as in the original file. I greatly appreciate your assistance with this. Thanks!
+In the production file, the via drill size has been changed from 0.15mm to 0.2mm [or whatever they changed it to]. Please do not change the via size. They should be 0.15mm drill and 0.3mm diameter as in the original file. I greatly appreciate your assistance with this. Thanks!
 ```
 
-You'll notice that they grow the copper clearance around drills on inner layers. As long as they are not changing the via diameters, this is OK. They may also request to remove annular rings ("pads") on internal layers. This is good as it lessens the impact of their copper clearance expansion on the inner planes.
+Some amount of "compensation" (growth of annular rings + padshaving) is unavoidable; however, if the drills are increased to 0.2mm or more, this will result in extreme padshaving of many vias/traces. You'll also notice that they expand the copper clearance around drills on inner layers as part of the compensation process. As long as they are not changing the drill diameters, this is OK. They may also request to remove annular rings ("pads") on internal layers. This is OK as it lessens the impact of their copper clearance expansion on the inner planes.
 
 ![image](https://github.com/mackieks/thundervolt/assets/49252894/28143b2f-454b-4819-bf8b-bedc201789e9)
 
