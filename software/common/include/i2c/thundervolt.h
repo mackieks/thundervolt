@@ -70,6 +70,9 @@ enum {
 // Get the hardware revision of Thundervolt
 int thundervolt_get_hardware_revision(uint8_t *hw_rev);
 
+// Check if all regulators are present
+bool thundervolt_regs_present();
+
 // Get the current voltage for the specified rail, in mV
 int thundervolt_get_voltage(uint8_t rail, uint16_t *voltage);
 

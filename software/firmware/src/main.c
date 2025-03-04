@@ -288,6 +288,13 @@ int main(void)
   gpio_set_high(EN);
   _delay_ms(10);
 
+  // Make sure we can talk to all four regulators. If not, shut down + enable SOS until power is cycled
+  if (thundervolt_regs_present()) { // pretend detecting a reg = shutdown
+    // Enable the SOS LED effect
+    led_effect_blink_pattern(LED_SOS_PATTERN, sizeof(LED_SOS_PATTERN) / sizeof(LED_SOS_PATTERN[0]));
+    while (1) {};
+  }
+
   // Determine the startup voltages
   uint16_t voltages[4];
   if (in_safe_mode) {

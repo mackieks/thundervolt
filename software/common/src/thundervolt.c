@@ -130,6 +130,11 @@ int thundervolt_get_hardware_revision(uint8_t *hw_rev)
   return 0;
 }
 
+bool thundervolt_regs_present()
+{
+  return tps6286x_is_present(THUNDERVOLT_ADDR_HW1_REG_1V0);
+}
+
 int thundervolt_get_voltage(uint8_t rail, uint16_t *voltage)
 {
   switch (rail) {
