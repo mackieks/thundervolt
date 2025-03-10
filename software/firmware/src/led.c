@@ -179,8 +179,7 @@ void led_effect_update(uint32_t millis)
 
     case EFFECT_BREATHE: {
       uint32_t pos = (elapsed % effect_data.period) * 2;
-      led_set_raw(pos < effect_data.period ? fade_on_brightness(pos)
-                                           : fade_off_brightness(pos - effect_data.period));
+      led_set_raw(pos < effect_data.period ? fade_on_brightness(pos) : fade_off_brightness(pos - effect_data.period));
       break;
     }
 

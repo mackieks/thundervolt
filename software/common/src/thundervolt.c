@@ -130,9 +130,12 @@ int thundervolt_get_hardware_revision(uint8_t *hw_rev)
   return 0;
 }
 
-bool thundervolt_regs_present()
+bool thundervolt_i2c_scan()
 {
-  return tps6286x_is_present(THUNDERVOLT_ADDR_HW1_REG_1V0);
+  return tps6286x_is_present(get_regulator_i2c_addr(THUNDERVOLT_RAIL_1V0)) &&
+         tps6286x_is_present(get_regulator_i2c_addr(THUNDERVOLT_RAIL_1V15)) &&
+         tps6286x_is_present(get_regulator_i2c_addr(THUNDERVOLT_RAIL_1V8)) && tps6381x_is_present() &&
+         tmp1075_is_present(THUNDERVOLT_ADDR_TMP);
 }
 
 int thundervolt_get_voltage(uint8_t rail, uint16_t *voltage)

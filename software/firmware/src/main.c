@@ -215,14 +215,14 @@ void rtc_init()
 // Handle periodic RTC interrupts (every ~1ms)
 ISR(RTC_PIT_vect)
 {
+  // Clear the interrupt flag
+  RTC.PITINTFLAGS = RTC_PI_bm;
+
   // Update the "milliseconds since boot" counter
   millis++;
 
   // Update the LED effect
   led_effect_update(millis);
-
-  // Clear the interrupt flag
-  RTC.PITINTFLAGS = RTC_PI_bm;
 }
 
 // Handle gpio interrupts on PORTA
@@ -286,13 +286,18 @@ int main(void)
   // Registers cannot be read/written via I2C on the TPS62868x until startup is finished,
   // so we must enable the regulators and wait a short time (at least ~1100us) first
   gpio_set_high(EN);
-  _delay_ms(10);
+  _delay_ms(3);
 
-  // Make sure we can talk to all four regulators. If not, shut down + enable SOS until power is cycled
-  if (thundervolt_regs_present()) { // pretend detecting a reg = shutdown
+  // Make sure we can talk to all four regulators and the TMP. If not, shut down + enable SOS until power is cycled
+  if (!thundervolt_i2c_scan()) {
+
+    gpio_set_low(EN);
+
     // Enable the SOS LED effect
     led_effect_blink_pattern(LED_SOS_PATTERN, sizeof(LED_SOS_PATTERN) / sizeof(LED_SOS_PATTERN[0]));
-    while (1) {};
+
+    asm volatile("nop"); // required due to some sinister bug somewhere...
+    while (1);
   }
 
   // Determine the startup voltages
@@ -342,5 +347,6 @@ int main(void)
   i2c_target_init(THUNDERVOLT_I2C_ADDR, handle_register_read, handle_register_write);
 
   // Main loop
+  asm volatile("nop"); // required due to some sinister bug somewhere...
   while (1);
 }
