@@ -63,14 +63,12 @@ static int tps6286x_set_vout(uint8_t addr, uint8_t reg, uint8_t chip_type, uint1
 bool tps6286x_is_present(uint8_t addr)
 {
   // NOTE: The TPS6286X does not have a device ID register
-
   return i2c_detect(addr);
 }
 
 int tps6286x_enable(uint8_t addr, bool enabled)
 {
-  return i2c_reg_update_byte(addr, TPS6286X_REG_CONTROL, TPS6286X_ENABLE,
-                             enabled ? TPS6286X_ENABLE : 0);
+  return i2c_reg_update_byte(addr, TPS6286X_REG_CONTROL, TPS6286X_ENABLE, enabled ? TPS6286X_ENABLE : 0);
 }
 
 int tps6286x_set_slew_rate(uint8_t addr, uint8_t slew_rate)

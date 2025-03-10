@@ -70,6 +70,9 @@ enum {
 // Get the hardware revision of Thundervolt
 int thundervolt_get_hardware_revision(uint8_t *hw_rev);
 
+// Returns true if all regulators and TMP are accessible over i2c. Only usable in i2c controller mode.
+bool thundervolt_i2c_scan();
+
 // Get the current voltage for the specified rail, in mV
 int thundervolt_get_voltage(uint8_t rail, uint16_t *voltage);
 
