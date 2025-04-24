@@ -29,7 +29,7 @@ If you are using VS Code, you can build the firmware by opening the `firmware` f
 
 Flashing the firmware requires a UPDI programmer. You can use the official [ATMEL-ICE](https://www.microchip.com/en-us/development-tool/atatmel-ice), or a cheaper programmer such as the [Adafruit UPDI Friend](https://www.adafruit.com/product/5879) or MCUdude's [SerialUPDI](https://www.tindie.com/products/mcudude/serialupdi-programmer/).
 
-You need to change line 8 of `platformio.ini` to match the programmer you're using.
+You need to change line 12 of `platformio.ini` to match the programmer you're using.
 
 - `atmelice_updi` for ATMEL-ICE
 - `serialupdi` for SerialUPDI or UPDI Friend
