@@ -23,21 +23,26 @@ pio run -e thundervolt-hw1
 
 This will automatically download the required toolchain and build the firmware.
 
-If you are using VS Code, you can build the firmware by opening the firmware folder in VS Code, selecting your target, and clicking the Build button at the bottom of the window.
+If you are using VS Code, you can build the firmware by opening the `firmware` folder in VS Code. Let the PlatformIO extension configure the project. Select the correct environment to match your board variant. Then click the Build button at the bottom (check mark icon).
 
 ### Flashing
 
-Flashing the firmware required a UPDI programmer. You can use the official [ATMEL-ICE](https://www.microchip.com/en-us/development-tool/atatmel-ice), or a cheaper programmer such as the [Adafruit UPDI Friend](https://www.adafruit.com/product/5879) or MCUdude's [SerialUPDI](https://www.tindie.com/products/mcudude/serialupdi-programmer/).
+Flashing the firmware requires a UPDI programmer. You can use the official [ATMEL-ICE](https://www.microchip.com/en-us/development-tool/atatmel-ice), or a cheaper programmer such as the [Adafruit UPDI Friend](https://www.adafruit.com/product/5879) or MCUdude's [SerialUPDI](https://www.tindie.com/products/mcudude/serialupdi-programmer/).
 
-To flash the firmware using PlatformIO, run:
+You need to change line 8 of `platformio.ini` to match the programmer you're using.
+
+- `atmelice_updi` for ATMEL-ICE
+- `serialupdi` for SerialUPDI or UPDI Friend
+
+Then click the Upload button in VS Code. 
+
+To flash the firmware directly using PlatformIO, run:
 
 ```bash
 pio run -e thundervolt-hw1 -t upload
 ```
 
-You can also click the Upload button if you're using VS Code.
-
-Ensure your UPDI programmer is connected before running the command! All Thundervolt board variants have the same programming pad pinout, but you'll need to reference your specific programmer's docs for its pinout. 
+Ensure your UPDI programmer is connected before running the command or clicking the Upload button! All Thundervolt board variants have the same programming pad pinout, but you'll need to reference your specific programmer's docs for its pinout. 
 
 <img src="../images/prog.png" width=400/>
 
