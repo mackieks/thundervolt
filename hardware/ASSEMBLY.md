@@ -102,6 +102,10 @@ All board variants have the same programming pad layout. Reference your programm
 
 See the [software folder](https://github.com/mackieks/thundervolt/tree/main/software) for more details on building and flashing the firmware.
 
+## Troubleshooting
+
+Once the firmware is flashed, Thundervolt automatically does a self-test.  If everything is OK, the amber LED will pulse slowly (breathing pattern). If the ATtiny cannot talk to all of the regulators and the temperature sensor over I2C, it will turn off the regulators and flash the amber LED with an SOS pattern. This indicates an assembly issue on the board.
+
 
 
 
