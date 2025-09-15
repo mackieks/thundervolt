@@ -1,5 +1,10 @@
 /*
- * I2C Wii bit-banging core.
+ * I2C Wii bitbang core.
+ *
+ * Based heavily on Zephyr's i2c_bitbang.c:
+ *   Copyright (c) 2017 Linaro Ltd.
+ *   Licensed under the Apache License, Version 2.0
+ *   https://github.com/zephyrproject-rtos/zephyr
  */
 
 #if defined(HW_RVL) && !defined(DOLPHIN)
