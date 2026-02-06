@@ -5,9 +5,11 @@
 
 // Image
 #include "arrow_png.h"
+#include "broken_heart_png.h"
 #include "bullet_png.h"
 #include "cursor_png.h"
 #include "dolphin_png.h"
+#include "heart_png.h"
 #include "note_png.h"
 #include "toggle_off_png.h"
 #include "toggle_on_png.h"

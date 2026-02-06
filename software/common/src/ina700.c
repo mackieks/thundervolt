@@ -110,8 +110,8 @@ int ina700_get_power(uint8_t addr, uint32_t *power)
   if ((rcode = ina700_reg_read_24(addr, INA700_REG_POWER, &regval)) < 0)
     return rcode;
 
-  // Convert the raw register value to uW
-  *power = regval * INA700_POWER_LSB;
+  // Convert the raw register value to mW
+  *power = regval * INA700_POWER_LSB / 1000;
 
   return 0;
 }

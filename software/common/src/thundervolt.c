@@ -183,6 +183,21 @@ int thundervolt_set_voltage(uint8_t rail, uint16_t voltage)
   }
 }
 
+int thundervolt_get_bus_voltage(uint8_t rail, uint16_t *voltage)
+{
+  // Check if power monitoring is supported
+  if (!thundervolt_has_power_monitoring())
+    return -THUNDERVOLT_ERR_NOT_SUPPORTED;
+
+  // Determine I2C address based on rail
+  int addr = get_power_monitor_i2c_addr(rail);
+  if (addr < 0)
+    return addr;
+
+  // Read the current from the INA700
+  return ina700_get_bus_voltage(addr, voltage);
+}
+
 int thundervolt_get_current(uint8_t rail, uint16_t *current)
 {
   // Check if power monitoring is supported

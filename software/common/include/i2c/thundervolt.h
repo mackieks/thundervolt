@@ -79,6 +79,9 @@ int thundervolt_get_voltage(uint8_t rail, uint16_t *voltage);
 // Set the voltage for the specified rail, in mV
 int thundervolt_set_voltage(uint8_t rail, uint16_t voltage);
 
+// Get the bus voltage for the specified rail, in mV
+int thundervolt_get_bus_voltage(uint8_t rail, uint16_t *voltage);
+
 // Get the current for the specified rail, in mA
 int thundervolt_get_current(uint8_t rail, uint16_t *current);
 

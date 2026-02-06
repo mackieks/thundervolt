@@ -54,14 +54,16 @@ static const int COL_MID   = COL_START + COL_WIDTH / 2;
 static GRRLIB_ttfFont *myFont = NULL;
 
 // Textures
-static GRRLIB_texImg *logo      = NULL;
-static GRRLIB_texImg *note      = NULL;
-static GRRLIB_texImg *arrow     = NULL;
-static GRRLIB_texImg *cursor    = NULL;
-static GRRLIB_texImg *bullet    = NULL;
-static GRRLIB_texImg *toggleOn  = NULL;
-static GRRLIB_texImg *toggleOff = NULL;
-static GRRLIB_texImg *icon      = NULL;
+static GRRLIB_texImg *logo        = NULL;
+static GRRLIB_texImg *note        = NULL;
+static GRRLIB_texImg *heart       = NULL;
+static GRRLIB_texImg *brokenheart = NULL;
+static GRRLIB_texImg *arrow       = NULL;
+static GRRLIB_texImg *cursor      = NULL;
+static GRRLIB_texImg *bullet      = NULL;
+static GRRLIB_texImg *toggleOn    = NULL;
+static GRRLIB_texImg *toggleOff   = NULL;
+static GRRLIB_texImg *icon        = NULL;
 
 // Menu state
 static menu *prevMenu               = NULL;
@@ -79,14 +81,21 @@ static uint8_t prevSelectedEntry    = 0;
 static bool musicPaused = false;
 
 // Thundervolt state
-static bool thundervoltPresent  = false;
-static uint16_t liveVoltages[4] = {0};
-static int8_t liveOvertemp      = 0;
-static bool overtempShutdown    = false;
+static bool thundervoltPresent   = false;
+static uint16_t liveVoltages[4]  = {0};
+static uint16_t savedVoltages[4] = {0};
+static int8_t liveOvertemp       = 0;
+static bool overtempShutdown     = false;
 
 // Board temperature
 static float temp            = 0.0;
 static uint64_t prevTempTime = 0;
+
+// Board voltage, current, power
+static uint16_t busVoltage[4] = {0};
+static uint16_t busCurrent[4] = {0};
+static uint32_t busPower[4]   = {0};
+static uint64_t prevPowerTime = 0;
 
 //
 // Common menu functions
@@ -252,6 +261,7 @@ int dummy(menu *self, uint8_t action)
 
 int enterUndervoltMenu(menu *self, uint8_t action);
 int enterOvertempMenu(menu *self, uint8_t action);
+int enterPowerMenu(menu *self, uint8_t action);
 int enterCreditsMenu(menu *self, uint8_t action);
 
 // Menu entries
@@ -262,11 +272,24 @@ static menu mainMenu[] = {
     {"board power: ? mW            ", 4, 1, 0, 0, 1, 1, 4, grey, dummy},
     {"configure undervolt          ", 0, 1, 1, 1, 1, 1, 6, white, enterUndervoltMenu},
     {"configure overtemp protection", 0, 1, 1, 0, 1, 1, 7, white, enterOvertempMenu},
-    {"power monitor                ", 0, 1, 0, 0, 1, 1, 8, grey, dummy},
+    {"power monitor                ", 0, 1, 1, 0, 1, 1, 8, white, enterPowerMenu},
     {"stress test                  ", 0, 1, 0, 0, 1, 1, 9, grey, dummy},
     {"credits                      ", 0, 1, 1, 0, 1, 1, 11, white, enterCreditsMenu},
     {"exit                         ", 2, 1, 1, 0, 1, 1, 12, white, exitToPad},
 };
+
+//
+// Power Monitoring submenu
+//
+
+static menu powerMenu[] = {
+    {"back                                   ", 2, 1, 1, 1, 1, 1, 13, white, exitSubmenu},
+};
+
+int enterPowerMenu(menu *self, uint8_t action)
+{
+  return enterSubmenu(powerMenu, sizeof(powerMenu) / sizeof(menu));
+}
 
 //
 // Undervolt submenu
@@ -276,14 +299,14 @@ int setLiveUndervolt(menu *self, uint8_t action);
 int setPersistedUndervolt(menu *self, uint8_t action);
 
 static menu undervoltMenu[] = {
-    {"undervolt configuration      ", 4, 1, 0, 0, 1, 1, 0, light_grey, dummy},
-    {"1V (GPU)                     ", 3, 1, 1, 1, 1, 1, 2, white, adjustValue, &VOLTAGE_LIMITS[0]},
-    {"1.15V (CPU)                  ", 3, 1, 1, 0, 1, 1, 4, white, adjustValue, &VOLTAGE_LIMITS[1]},
-    {"1.8V (DDR)                   ", 3, 1, 1, 0, 1, 1, 6, white, adjustValue, &VOLTAGE_LIMITS[2]},
-    {"3.3V (NAND/IO)               ", 3, 1, 1, 0, 1, 1, 8, white, adjustValue, &VOLTAGE_LIMITS[3]},
-    {"apply changes now            ", 2, 1, 1, 0, 1, 1, 10, white, setLiveUndervolt},
-    {"apply and save to eeprom     ", 2, 1, 1, 0, 1, 1, 11, white, setPersistedUndervolt},
-    {"back                         ", 2, 1, 1, 0, 1, 1, 13, white, exitSubmenu},
+    {"undervolt config          saved        live    ", 4, 1, 0, 0, 1, 1, 0, light_grey, dummy},
+    {"1V (GPU)                               ", 3, 1, 1, 1, 1, 1, 2, white, adjustValue, &VOLTAGE_LIMITS[0]},
+    {"1.15V (CPU)                            ", 3, 1, 1, 0, 1, 1, 4, white, adjustValue, &VOLTAGE_LIMITS[1]},
+    {"1.8V (DDR)                             ", 3, 1, 1, 0, 1, 1, 6, white, adjustValue, &VOLTAGE_LIMITS[2]},
+    {"3.3V (NAND/IO)                         ", 3, 1, 1, 0, 1, 1, 8, white, adjustValue, &VOLTAGE_LIMITS[3]},
+    {"apply changes now                      ", 2, 1, 1, 0, 1, 1, 10, white, setLiveUndervolt},
+    {"apply and save to eeprom               ", 2, 1, 1, 0, 1, 1, 11, white, setPersistedUndervolt},
+    {"back                                   ", 2, 1, 1, 0, 1, 1, 13, white, exitSubmenu},
 };
 
 int enterUndervoltMenu(menu *self, uint8_t action)
@@ -304,6 +327,16 @@ int setLiveUndervolt(menu *self, uint8_t action)
   return 1;
 }
 
+int getPersistedUndervolt()
+{
+  for (int i = THUNDERVOLT_RAIL_1V0; i <= THUNDERVOLT_RAIL_3V3; i++) {
+    // load persisted voltages from Thundervolt EEPROM
+    thundervolt_get_persisted_voltage(i, &savedVoltages[i]);
+  }
+
+  return 1;
+}
+
 int setPersistedUndervolt(menu *self, uint8_t action)
 {
   for (int i = THUNDERVOLT_RAIL_1V0; i <= THUNDERVOLT_RAIL_3V3; i++) {
@@ -314,6 +347,9 @@ int setPersistedUndervolt(menu *self, uint8_t action)
     // write display voltages to Thundervolt EEPROM
     thundervolt_set_persisted_voltage(i, undervoltMenu[i + 1].value);
   }
+
+  // load persisted voltages from Thundervolt EEPROM
+  getPersistedUndervolt();
 
   playSound(enter_raw, enter_raw_size);
 
@@ -328,13 +364,13 @@ int setLiveOvertemp(menu *self, uint8_t action);
 int setPersistedOvertemp(menu *self, uint8_t action);
 
 static menu overtempMenu[] = {
-    {"overtemp configuration       ", 4, 1, 0, 0, 1, 1, 0, light_grey, dummy},
-    {"current temperature:         ", 4, 1, 0, 0, 1, 1, 2, white, dummy},
-    {"overtemp threshold           ", 3, 1, 1, 1, 1, 1, 4, white, adjustValue, &OTSD_LIMITS},
-    {"enable overtemp shutdown     ", 1, 1, 1, 0, 1, 1, 6, white, toggleOption},
-    {"apply changes now            ", 2, 1, 1, 0, 1, 1, 8, white, setLiveOvertemp},
-    {"apply and save to eeprom     ", 2, 1, 1, 0, 1, 1, 9, white, setPersistedOvertemp},
-    {"back                         ", 2, 1, 1, 0, 1, 1, 11, white, exitSubmenu},
+    {"overtemp configuration                 ", 4, 1, 0, 0, 1, 1, 0, light_grey, dummy},
+    {"current temperature:                   ", 4, 1, 0, 0, 1, 1, 2, white, dummy},
+    {"overtemp threshold                     ", 3, 1, 1, 1, 1, 1, 4, white, adjustValue, &OTSD_LIMITS},
+    {"enable overtemp shutdown               ", 1, 1, 1, 0, 1, 1, 6, white, toggleOption},
+    {"apply changes now                      ", 2, 1, 1, 0, 1, 1, 8, white, setLiveOvertemp},
+    {"apply and save to eeprom               ", 2, 1, 1, 0, 1, 1, 9, white, setPersistedOvertemp},
+    {"back                                   ", 2, 1, 1, 0, 1, 1, 11, white, exitSubmenu},
 };
 
 int enterOvertempMenu(menu *self, uint8_t action)
@@ -382,15 +418,15 @@ int setPersistedOvertemp(menu *self, uint8_t action)
 //
 
 static menu creditsMenu[] = {
-    {"credits                      ", 4, 1, 0, 0, 1, 1, 0, light_grey, dummy},
-    {"thundervolt software by:     ", 4, 1, 0, 0, 1, 1, 2, white, dummy},
-    {"  YveltalGriffin (UI, app)   ", 4, 1, 0, 0, 1, 1, 3, white, dummy},
-    {"  loopj (i2c, app)           ", 4, 1, 0, 0, 1, 1, 4, white, dummy},
-    {"  Alex/supertazon (graphics) ", 4, 1, 0, 0, 1, 1, 5, white, dummy},
-    {"music by ShockSlayer         ", 4, 1, 0, 0, 1, 1, 6, white, dummy},
-    {"thundervolt firmware by loopj", 4, 1, 0, 0, 1, 1, 8, white, dummy},
+    {"credits                                ", 4, 1, 0, 0, 1, 1, 0, light_grey, dummy},
+    {"thundervolt software by:               ", 4, 1, 0, 0, 1, 1, 2, white, dummy},
+    {"  YveltalGriffin (UI, app)             ", 4, 1, 0, 0, 1, 1, 3, white, dummy},
+    {"  loopj (i2c, app)                     ", 4, 1, 0, 0, 1, 1, 4, white, dummy},
+    {"  Alex/supertazon (graphics)           ", 4, 1, 0, 0, 1, 1, 5, white, dummy},
+    {"music by ShockSlayer                   ", 4, 1, 0, 0, 1, 1, 6, white, dummy},
+    {"thundervolt firmware by loopj          ", 4, 1, 0, 0, 1, 1, 8, white, dummy},
     {"thundervolt hardware designed by YveltalGriffin", 4, 1, 0, 0, 1, 1, 10, white, dummy},
-    {"back                         ", 2, 1, 1, 1, 1, 1, 12, white, exitSubmenu},
+    {"back                                   ", 2, 1, 1, 1, 1, 1, 12, white, exitSubmenu},
 };
 
 int enterCreditsMenu(menu *self, uint8_t action)
@@ -418,14 +454,16 @@ void setupMenu()
   myFont = GRRLIB_LoadTTF(Glass_TTY_VT220_ttf, Glass_TTY_VT220_ttf_size);
 
   // Load textures
-  logo      = GRRLIB_LoadTexture(tv_png);
-  note      = GRRLIB_LoadTexture(note_png);
-  arrow     = GRRLIB_LoadTexture(arrow_png);
-  cursor    = GRRLIB_LoadTexture(cursor_png);
-  bullet    = GRRLIB_LoadTexture(bullet_png);
-  toggleOn  = GRRLIB_LoadTexture(toggle_on_png);
-  toggleOff = GRRLIB_LoadTexture(toggle_off_png);
-  icon      = GRRLIB_LoadTexture(dolphin_png);
+  logo        = GRRLIB_LoadTexture(tv_png);
+  note        = GRRLIB_LoadTexture(note_png);
+  heart       = GRRLIB_LoadTexture(heart_png);
+  brokenheart = GRRLIB_LoadTexture(broken_heart_png);
+  arrow       = GRRLIB_LoadTexture(arrow_png);
+  cursor      = GRRLIB_LoadTexture(cursor_png);
+  bullet      = GRRLIB_LoadTexture(bullet_png);
+  toggleOn    = GRRLIB_LoadTexture(toggle_on_png);
+  toggleOff   = GRRLIB_LoadTexture(toggle_off_png);
+  icon        = GRRLIB_LoadTexture(dolphin_png);
 
   // set up main menu
   currentMenu       = mainMenu;
@@ -450,15 +488,17 @@ void setupMenu()
     thundervolt_get_safemode_enabled(&safemode);
     snprintf(mainMenu[1].name, 50, "%s%s", "safe mode ", safemode ? "enabled" : "disabled");
 
-    // Check if power monitoring is supported
+    // Check if power monitoring is supported (HW2 only)
     if (thundervolt_has_power_monitoring()) {
       mainMenu[3].color      = white;
-      mainMenu[3].selectable = true;
       mainMenu[6].color      = white;
       mainMenu[6].selectable = true;
     }
 
-    // grab persisted voltages & live voltages
+    // grab persisted voltages
+    getPersistedUndervolt();
+
+    // grab live voltages (live tweaks, app restarts, etc. mean these may not match persisted values)
     for (int i = THUNDERVOLT_RAIL_1V0; i <= THUNDERVOLT_RAIL_3V3; i++) {
       thundervolt_get_voltage(i, &liveVoltages[i]);
       undervoltMenu[i + 1].value = liveVoltages[i];
@@ -471,7 +511,6 @@ void setupMenu()
     // grab persisted overtemp threshold & live overtemp threshold
     thundervolt_get_otsd_limit(&liveOvertemp);
     overtempMenu[2].value = liveOvertemp;
-
   } else {
 
     snprintf(mainMenu[0].name, 50, "thundervolt not detected!");
@@ -538,7 +577,7 @@ int handleMenuInput()
       exitSubmenu(NULL, 0);
     }
   }
-  
+
   /* Entries' functions should all return 1 except for mainMenu.exitToPad,
   which should return 0 and result in a break from this while loop. */
   return 1;
@@ -564,13 +603,24 @@ void drawMenu()
   GRRLIB_DrawImg(280, 69, icon, 0, 1, 1, white);
 #endif
 
-  // update the board temp periodically
+  // update the board temp and power stats periodically
   if (thundervoltPresent) {
     u64 now = gettime();
     if (diff_usec(prevTempTime, now) > 500000) {
+
       thundervolt_get_temp(&temp);
       snprintf(mainMenu[2].name, 50, "%s%.2f%s", "board temp: ", temp, "°C");
       snprintf(overtempMenu[1].name, 50, "%s%.2f%s", "current temperature:                   ", temp, "°C");
+
+      // Check if power monitoring is supported (HW2 only)
+      if (thundervolt_has_power_monitoring()) {
+        for (int i = THUNDERVOLT_RAIL_1V0; i <= THUNDERVOLT_RAIL_3V3; i++) {
+          thundervolt_get_bus_voltage(i, &busVoltage[i]);
+          thundervolt_get_current(i, &busCurrent[i]);
+          thundervolt_get_power(i, &busPower[i]);
+          prevPowerTime = now;
+        }
+      }
 
       prevTempTime = now;
     }
@@ -634,6 +684,14 @@ void drawMenu()
       // draw value text
       u32 textWidth = GRRLIB_WidthTTF(myFont, valueStr, 20);
       GRRLIB_PrintfTTF(COL_MID - textWidth / 2, 120 + entry->index * 20, myFont, valueStr, 20, dirty ? yellow : white);
+
+      // hardcode savedVoltage readout for now
+      if (currentMenu == undervoltMenu) {
+        snprintf(valueStr, 16, "%d%s", savedVoltages[n - 1], " mV");
+        // draw value text
+        u32 textWidth = GRRLIB_WidthTTF(myFont, valueStr, 20);
+        GRRLIB_PrintfTTF(COL_MID - textWidth / 2 - 128, 120 + entry->index * 20, myFont, valueStr, 20, light_grey);
+      }
     }
 
     // draw bullet points on credits menu
@@ -651,8 +709,139 @@ void drawMenu()
   if (currentMenu == creditsMenu) {
     GRRLIB_PrintfTTF(390, 360, myFont, "visit thundervo.lt!", 20, yellow);
   } else {
-    GRRLIB_DrawImg(420, 380, note, 0, 1, 1, white); // Draw a png
+    GRRLIB_DrawImg(420, 380, note, 0, 1, 1, white); // Draw music note
     GRRLIB_PrintfTTF(450, 380, myFont, "Enough Blocks", 20, white);
+  }
+
+  int gpu_x = 80;
+  int gpu_y = 160;
+
+  int cpu_x = 200;
+  int ddr_x = 320;
+  int io_x  = 440;
+
+  int offset = 9;
+
+  // power menu testing
+  if (currentMenu == powerMenu) {
+    GRRLIB_PrintfTTF(370, 70, myFont, "power monitor", 20, light_grey);
+
+    GRRLIB_PrintfTTF(gpu_x, 120, myFont, "quad ina700s online!", 20, white);
+
+    char valueStr[16];
+
+    // hardcode for testing
+    // busVoltage[0] = 926;
+    // busVoltage[1] = 851;
+    // busVoltage[2] = 1451;
+    // busVoltage[3] = 3211;
+
+    // busCurrent[0] = 926;
+    // busCurrent[1] = 851;
+    // busCurrent[2] = 1451;
+    // busCurrent[3] = 3211;
+
+    // busPower[0] = 926;
+    // busPower[1] = 851;
+    // busPower[2] = 1451;
+    // busPower[3] = 3211;
+
+    // GPU Readout
+
+    GRRLIB_PrintfTTF(gpu_x, gpu_y, myFont, "GPU", 20, yellow);
+
+    snprintf(valueStr, 16, "%d", busVoltage[0]);
+
+    GRRLIB_PrintfTTF(gpu_x, gpu_y + 20, myFont, valueStr, 30, white);
+    GRRLIB_PrintfTTF(gpu_x + GRRLIB_WidthTTF(myFont, valueStr, 30) + 4, gpu_y + 20 + offset, myFont, "mV", 20, white);
+
+    snprintf(valueStr, 16, "%d", busCurrent[0]);
+
+    GRRLIB_PrintfTTF(gpu_x, gpu_y + 50, myFont, valueStr, 30, white);
+    GRRLIB_PrintfTTF(gpu_x + GRRLIB_WidthTTF(myFont, valueStr, 30) + 4, gpu_y + 50 + offset, myFont, "mA", 20, white);
+
+    snprintf(valueStr, 16, "%d", busPower[0]);
+
+    GRRLIB_PrintfTTF(gpu_x, gpu_y + 80, myFont, valueStr, 30, white);
+    GRRLIB_PrintfTTF(gpu_x + GRRLIB_WidthTTF(myFont, valueStr, 30) + 4, gpu_y + 80 + offset, myFont, "mW", 20, white);
+
+    // CPU Readout
+
+    GRRLIB_PrintfTTF(cpu_x, gpu_y, myFont, "CPU", 20, yellow);
+
+    snprintf(valueStr, 16, "%d", busVoltage[1]);
+
+    GRRLIB_PrintfTTF(cpu_x, gpu_y + 20, myFont, valueStr, 30, white);
+    GRRLIB_PrintfTTF(cpu_x + GRRLIB_WidthTTF(myFont, valueStr, 30) + 4, gpu_y + 20 + offset, myFont, "mV", 20, white);
+
+    snprintf(valueStr, 16, "%d", busCurrent[1]);
+
+    GRRLIB_PrintfTTF(cpu_x, gpu_y + 50, myFont, valueStr, 30, white);
+    GRRLIB_PrintfTTF(cpu_x + GRRLIB_WidthTTF(myFont, valueStr, 30) + 4, gpu_y + 50 + offset, myFont, "mA", 20, white);
+
+    snprintf(valueStr, 16, "%d", busPower[1]);
+
+    GRRLIB_PrintfTTF(cpu_x, gpu_y + 80, myFont, valueStr, 30, white);
+    GRRLIB_PrintfTTF(cpu_x + GRRLIB_WidthTTF(myFont, valueStr, 30) + 4, gpu_y + 80 + offset, myFont, "mW", 20, white);
+
+    // DDR Readout
+
+    GRRLIB_PrintfTTF(ddr_x, gpu_y, myFont, "DDR", 20, yellow);
+
+    snprintf(valueStr, 16, "%d", busVoltage[2]);
+
+    GRRLIB_PrintfTTF(ddr_x, gpu_y + 20, myFont, valueStr, 30, white);
+    GRRLIB_PrintfTTF(ddr_x + GRRLIB_WidthTTF(myFont, valueStr, 30) + 4, gpu_y + 20 + offset, myFont, "mV", 20, white);
+
+    snprintf(valueStr, 16, "%d", busCurrent[2]);
+
+    GRRLIB_PrintfTTF(ddr_x, gpu_y + 50, myFont, valueStr, 30, white);
+    GRRLIB_PrintfTTF(ddr_x + GRRLIB_WidthTTF(myFont, valueStr, 30) + 4, gpu_y + 50 + offset, myFont, "mA", 20, white);
+
+    snprintf(valueStr, 16, "%d", busPower[2]);
+
+    GRRLIB_PrintfTTF(ddr_x, gpu_y + 80, myFont, valueStr, 30, white);
+    GRRLIB_PrintfTTF(ddr_x + GRRLIB_WidthTTF(myFont, valueStr, 30) + 4, gpu_y + 80 + offset, myFont, "mW", 20, white);
+
+    // NAND / IO Readout
+
+    GRRLIB_PrintfTTF(io_x, gpu_y, myFont, "NAND/IO", 20, yellow);
+
+    snprintf(valueStr, 16, "%d", busVoltage[3]);
+
+    GRRLIB_PrintfTTF(io_x, gpu_y + 20, myFont, valueStr, 30, white);
+    GRRLIB_PrintfTTF(io_x + GRRLIB_WidthTTF(myFont, valueStr, 30) + 4, gpu_y + 20 + offset, myFont, "mV", 20, white);
+
+    snprintf(valueStr, 16, "%d", busCurrent[3]);
+
+    GRRLIB_PrintfTTF(io_x, gpu_y + 50, myFont, valueStr, 30, white);
+    GRRLIB_PrintfTTF(io_x + GRRLIB_WidthTTF(myFont, valueStr, 30) + 4, gpu_y + 50 + offset, myFont, "mA", 20, white);
+
+    snprintf(valueStr, 16, "%d", busPower[3]);
+
+    GRRLIB_PrintfTTF(io_x, gpu_y + 80, myFont, valueStr, 30, white);
+    GRRLIB_PrintfTTF(io_x + GRRLIB_WidthTTF(myFont, valueStr, 30) + 4, gpu_y + 80 + offset, myFont, "mW", 20, white);
+
+    uint32_t total_power;
+
+    total_power = busPower[0] + busPower[1] + busPower[2] + busPower[3];
+
+    snprintf(valueStr, 16, "%d", total_power);
+
+    // Misc. indicators
+    GRRLIB_PrintfTTF(gpu_x, gpu_y + 130, myFont, "total power: ", 20, white);
+    GRRLIB_PrintfTTF(gpu_x + GRRLIB_WidthTTF(myFont, "total power: ", 20) + 4, gpu_y + 130 - 9, myFont, valueStr, 30,
+                     white);
+    GRRLIB_PrintfTTF(gpu_x + GRRLIB_WidthTTF(myFont, "total power: ", 20) + 6 + GRRLIB_WidthTTF(myFont, valueStr, 30),
+                     gpu_y + 130 + offset - 9, myFont, "mW", 20, white);
+
+    snprintf(valueStr, 16, "%.2f%s", temp, "°C");
+
+    GRRLIB_PrintfTTF(gpu_x, gpu_y + 150, myFont, "board temp:  ", 20, white);
+    GRRLIB_PrintfTTF(gpu_x + GRRLIB_WidthTTF(myFont, "board temp:  ", 20) + 5, gpu_y + 150, myFont, valueStr, 20,
+                     white);
+
+    // GRRLIB_DrawImg(300, 380, heart, 0, 0.3, 0.3, white); // Draw heart
   }
 
   // send the frame buffer to the screen

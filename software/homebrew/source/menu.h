@@ -15,7 +15,7 @@ enum entry_type { SUBMENU, TOGGLE, FUNCTION, ADJUSTABLE, INERT };
 typedef struct menu_s menu;
 
 struct menu_s {
-  char name[50];
+  char name[60];
   enum entry_type type;
   bool visible;
   bool selectable; // control for items cursor can be next to

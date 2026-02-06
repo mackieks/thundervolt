@@ -161,7 +161,7 @@ static int handle_register_write(uint8_t reg_addr, uint8_t value)
   registers[reg_addr] = value;
 
   // Persist the value to the EEPROM
-  // for some reason eeprom_update_byte is buggy, so use eeprom_update_byte instead
+  // for some reason eeprom_write_byte is buggy, so use eeprom_update_byte instead
   eeprom_update_byte((uint8_t *)reg_addr, value);
 
   return 0;
