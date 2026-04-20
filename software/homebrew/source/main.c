@@ -18,8 +18,11 @@
 
 s8 hardwareButton = -1;
 
-void wiiResetPressed()
+void wiiResetPressed(unsigned int irq, void *ctx)
 {
+  (void)irq;
+  (void)ctx;
+
   hardwareButton = SYS_RETURNTOMENU;
 }
 
@@ -28,8 +31,10 @@ void wiiPowerPressed()
   hardwareButton = SYS_POWEROFF_STANDBY;
 }
 
-void wiimotePowerPressed(s32 chan __attribute__((unused)))
+void wiimotePowerPressed(s32 chan)
 {
+  (void)chan;
+
   hardwareButton = SYS_POWEROFF_STANDBY;
 }
 
